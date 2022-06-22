@@ -1,0 +1,46 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    ViewData["Title"] = "Role Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Role Manager</h1>
+@*<form method="post" asp-action="createrole" asp-controller="admin">
+    <div class="input-group">
+        <input name="roleName" class="form-control w-25">
+        <span class="input-group-btn">
+        </span>
+    </div>
+</form>*@
+
+  <button class="btn btn-info" style="float:right">
+      <a asp-action="createrole" asp-controller="admin" style="text-decoration:none">
+      Add New Role </a></button>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Role</th>
+            <th>Enable/Disable Role</th>
+            <th>Role Functions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+                  <td> 
+
+                      <input type="checkbox">
+                  </td>
+                  <td></td>
+                <td>
+                    <a asp-action="editrole" asp-controller="admin" asp-route-id="@role.Id">edit role</a>
+                </td>
+              
+            </tr>
+        }
+    </tbody>
+</table>
