@@ -2,13 +2,13 @@
 {
     public class RoleClaimViewModel
     {
-         public RoleClaimViewModel()
+        public RoleClaimViewModel()
         {
             Claims = new List<RoleClaims>();
 
-        } 
+        }
 
-        public string RoleId { get; set; }  
+        public string RoleId { get; set; }
         public List<RoleClaims> Claims { get; set; }
 
     }

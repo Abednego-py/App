@@ -11,11 +11,11 @@ namespace App.ViewModels
         public string? RoleId { get; set; }
 
         [Required(ErrorMessage = "Role Name is required")]
-        public string? RoleName { get; set; }    
+        public string? RoleName { get; set; }
 
         public List<string> Claims { get; set; }
 
-       // public bool IsEnabled { get; set; }  
+        // public bool IsEnabled { get; set; }  
 
     }
 }

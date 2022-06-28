@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\abedn\\Downloads\\Core Banking App\\App\\App.csproj": {}
+    "C:\\Users\\abedn\\Documents\\CBA\\App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\abedn\\Downloads\\Core Banking App\\App\\App.csproj": {
+    "C:\\Users\\abedn\\Documents\\CBA\\App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abedn\\Downloads\\Core Banking App\\App\\App.csproj",
+        "projectUniqueName": "C:\\Users\\abedn\\Documents\\CBA\\App.csproj",
         "projectName": "App",
-        "projectPath": "C:\\Users\\abedn\\Downloads\\Core Banking App\\App\\App.csproj",
+        "projectPath": "C:\\Users\\abedn\\Documents\\CBA\\App.csproj",
         "packagesPath": "C:\\Users\\abedn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abedn\\Downloads\\Core Banking App\\App\\obj\\",
+        "outputPath": "C:\\Users\\abedn\\Documents\\CBA\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\abedn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,17 +40,21 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.5, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.5, )"
+              "version": "[6.0.6, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[6.0.5, )"
+              "version": "[6.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -65,6 +69,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.6, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[3.3.0, )"
             }
           },
           "imports": [

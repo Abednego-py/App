@@ -1,6 +1,8 @@
 using App.Data;
+using App.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+//using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +17,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+//builder.Services.Configure<MailSettings>(IConfiguration.GetSection("MailSettings"));
+
 builder.Services.AddAuthorization(options =>
 {
-  
+
 });
 
 var app = builder.Build();

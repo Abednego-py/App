@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using App.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
+﻿using App.Data;
 using App.Models;
+using App.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using App.Data;
 
 namespace App.Controllers
 {
@@ -15,6 +15,8 @@ namespace App.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
 
         private readonly ApplicationDbContext _context;
+
+        //private readonly IdentityRoleClaim<ClaimsIdentity> claimsManger;
 
         //private readonly IdentityRoleClaim<IdentityRole> roleClaim;
         public AdminController(RoleManager<IdentityRole> roleManager)
@@ -59,7 +61,7 @@ namespace App.Controllers
         public async Task<IActionResult> ListRoles()
         {
             var roles = await roleManager.Roles.ToListAsync();
-            
+
             return View(roles);
         }
         [HttpGet]
@@ -68,7 +70,7 @@ namespace App.Controllers
             ViewBag.RoleId = id;
             var role = await roleManager.FindByIdAsync(id);
 
-            if(role == null)
+            if (role == null)
             {
                 ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
                 return View("NotFound");
@@ -82,7 +84,7 @@ namespace App.Controllers
                 RoleId = role.Id,
                 Claims = roleClaims.Select(c => c.Value).ToList()
             };
-          return View(model);   
+            return View(model);
         }
 
         [HttpPost]
@@ -91,31 +93,31 @@ namespace App.Controllers
             var role = await roleManager.FindByIdAsync(id);
 
             if (role == null)
-           {
+            {
                 ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
                 return View("NotFound");
             }
             else
             {
-              role.Name = model.RoleName;
+                role.Name = model.RoleName;
 
-                var result =  await roleManager.UpdateAsync(role); 
-                
-               if(result.Succeeded)
+                var result = await roleManager.UpdateAsync(role);
+
+                if (result.Succeeded)
                 {
-                    return RedirectToAction("ListRoles");   
+                    return RedirectToAction("ListRoles");
                 }
                 foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
                 return View(model);
-           };
-          
+            };
+
         }
 
         [HttpGet]
-        public async Task<IActionResult> ManageRoleClaims(string roleId) 
+        public async Task<IActionResult> ManageRoleClaims(string roleId)
         {
             //ViewBag.RoleId = roleId;    
 
@@ -134,8 +136,8 @@ namespace App.Controllers
                 RoleId = roleId
             };
 
-            //var data = ClaimsStore.AllClaims;
-            //var data_ = _context.Claims.ToListAsync();  
+            //var data = claimsstore.allclaims;
+            //var data_ = _context.Claims.ToListAsync();
 
             foreach (Claim claim in ClaimsStore.AllClaims)
             {
@@ -144,9 +146,9 @@ namespace App.Controllers
                     ClaimType = claim.Type
                 };
 
-                if(existingRoleClaims.Any(c => c.Type == claim.Type))
+                if (existingRoleClaims.Any(c => c.Type == claim.Type))
                 {
-                    roleClaims.IsSelected = true;   
+                    roleClaims.IsSelected = true;
                 }
                 model.Claims.Add(roleClaims);
             }
@@ -175,17 +177,23 @@ namespace App.Controllers
                     ModelState.AddModelError("", "Cannot remove user existing claims");
                     return View(model);
                 }
-                var result_ = await roleManager.AddClaimAsync(role, (Claim)model.Claims.Where(c => c.IsSelected).Select(c => new Claim(c.ClaimType,
-                    c.ClaimType)));
 
-                if (!result_.Succeeded)
-                {
-                    ModelState.AddModelError("", "Cannot add selected claims to user");
-                    return View(model);
-                }
+
+            }
+            var data_ =  model.Claims.Where(c => c.IsSelected).Select(c => new Claim(c.ClaimType, c.ClaimType));
+               
+              foreach(var data in data_) 
+            { 
+                var result_ = await roleManager.AddClaimAsync(role, data);
+
+            if (!result_.Succeeded)
+            {
+                ModelState.AddModelError("", "Cannot add selected claims to user");
+                return View(model);
+            }
             }
             return RedirectToAction("EditRole", new { Id = model.RoleId });
-          
+
 
         }
 

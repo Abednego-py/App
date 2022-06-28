@@ -1,6 +1,6 @@
 ﻿namespace App.Models
 {
-    public class Claims
+    public class Claims 
     {
         public int ClaimsId { get; set; }
         public string ClaimsName { get; set; }

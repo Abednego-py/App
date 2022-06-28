@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using App.Data;
+﻿using App.Data;
 using App.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Controllers
 {
@@ -22,9 +17,9 @@ namespace App.Controllers
         // GET: Claims
         public async Task<IActionResult> Index()
         {
-              return _context.Claims != null ? 
-                          View(await _context.Claims.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Claims'  is null.");
+            return _context.Claims != null ?
+                        View(await _context.Claims.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Claims'  is null.");
         }
 
         // GET: Claims/Details/5
@@ -150,14 +145,14 @@ namespace App.Controllers
             {
                 _context.Claims.Remove(claims);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ClaimsExists(int id)
         {
-          return (_context.Claims?.Any(e => e.ClaimsId == id)).GetValueOrDefault();
+            return (_context.Claims?.Any(e => e.ClaimsId == id)).GetValueOrDefault();
         }
     }
 }
