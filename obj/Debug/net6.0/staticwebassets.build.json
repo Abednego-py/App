@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ktBRPBHhUyqgaIgiAxv5Sg5E4uRzKv+YUUHOL/fWPQE=",
+  "Hash": "2lUODiNZ+UJtBa96JYDDCRsTx4wqn65H4yIcO9xdAvk=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1103,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\abedn\\Documents\\CBA\\wwwroot\\Images\\homepage-background.jpg",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\abedn\\Documents\\CBA\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "Images/homepage-background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\homepage-background.jpg"
     },
     {
       "Identity": "C:\\Users\\abedn\\Documents\\CBA\\wwwroot\\js\\site.js",

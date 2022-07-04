@@ -20,6 +20,8 @@ namespace App.ViewModels
 
         public string PhoneNumber { get; set; }
 
+        public bool IsEnabled { get; set; } = true;
+
         //public string Password { get; set; }
 
         public IList<string> Roles { get; set; }

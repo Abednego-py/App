@@ -12,6 +12,11 @@
             <h2 style="margin-left:20px">Register a new user</h2>
           @*  <hr />*@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*     <div class="form-floating m-4">
+                <input asp-for="Input.Emai" class="form-control" autocomplete="username" aria-required="true" />
+                <label asp-for="Input.Email"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>*@
             <div class="form-floating m-4">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Input.Email"></label>

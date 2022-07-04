@@ -23,7 +23,6 @@
         <tr>
             <th>Id</th>
             <th>Role</th>
-            <th>Enable/Disable Role</th>
         </tr>
     </thead>
     <tbody>
@@ -33,11 +32,7 @@
                     <tr>
                         <td>@role.Id</td>
                         <td>@role.Name</td>
-                        <td> 
-
-                            <input type="checkbox" onclick="">
-                        </td>
-                         
+                     
                         <td></td>
                         <td>
                             <a asp-action="editrole" asp-controller="admin" asp-route-id="@role.Id">edit role</a>

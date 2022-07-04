@@ -13,6 +13,8 @@ namespace App.ViewModels
         [Required(ErrorMessage = "Role Name is required")]
         public string? RoleName { get; set; }
 
+        public bool IsEnabled { get; set; } = false;    
+
         public List<string> Claims { get; set; }
 
         // public bool IsEnabled { get; set; }  
