@@ -15,5 +15,6 @@ namespace App.Data
         public DbSet<App.Models.GLCategory>? GLCategory { get; set; }
         public DbSet<App.Models.Branch>? Branch { get; set; }
         public DbSet<App.Models.GlAccount>? GlAccount { get; set; }
+        public DbSet<App.Models.RoleEnabled>? RoleEnabled { get; set; }
     }
 }

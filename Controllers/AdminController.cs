@@ -19,9 +19,10 @@ namespace App.Controllers
         //private readonly IdentityRoleClaim<ClaimsIdentity> claimsManger;
 
         //private readonly IdentityRoleClaim<IdentityRole> roleClaim;
-        public AdminController(RoleManager<IdentityRole> roleManager)
+        public AdminController(RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             this.roleManager = roleManager;
+            this._context = context;  
         }
 
         [Authorize]
@@ -69,6 +70,7 @@ namespace App.Controllers
         {
             ViewBag.RoleId = id;
             var role = await roleManager.FindByIdAsync(id);
+            var roleEnabled = _context.RoleEnabled.Where(c => id == c.Id.ToString()).FirstOrDefault();
 
             if (role == null)
             {
@@ -82,6 +84,7 @@ namespace App.Controllers
             {
                 RoleName = role.Name,
                 RoleId = role.Id,
+                IsEnabled = roleEnabled.IsEnabled,
                 Claims = roleClaims.Select(c => c.Value).ToList()
             };
             return View(model);
@@ -92,14 +95,21 @@ namespace App.Controllers
         {
             var role = await roleManager.FindByIdAsync(id);
 
+            var roleEnabled = _context.RoleEnabled.Where(c => id == c.Id.ToString()).FirstOrDefault();
+            roleEnabled.AspNetRolesId = Int32.Parse(id);
+
+
             if (role == null)
             {
                 ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
                 return View("NotFound");
             }
+
             else
             {
                 role.Name = model.RoleName;
+                roleEnabled.IsEnabled = model.IsEnabled;
+                roleEnabled.AspNetRolesId = Int32.Parse(model.RoleId);
 
                 var result = await roleManager.UpdateAsync(role);
 
@@ -122,6 +132,7 @@ namespace App.Controllers
             //ViewBag.RoleId = roleId;    
 
             var role = await roleManager.FindByIdAsync(roleId);
+            
 
             if (role == null)
             {
@@ -139,7 +150,7 @@ namespace App.Controllers
             //var data = claimsstore.allclaims;
             //var data_ = _context.Claims.ToListAsync();
 
-            foreach (Claim claim in ClaimsStore.AllClaims)
+            foreach (Claim claim in ClaimsStore.GetClaims(_context))
             {
                 RoleClaims roleClaims = new RoleClaims
                 {

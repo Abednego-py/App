@@ -1,95 +1,96 @@
-﻿using App.Data;
-using App.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
+using App.Data;
+using App.Models;
 
 namespace App.Controllers
 {
-    public class ClaimsController : Controller
+    public class RoleEnabledsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ClaimsController(ApplicationDbContext context)
+        public RoleEnabledsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Claims
+        // GET: RoleEnableds
         public async Task<IActionResult> Index()
         {
-
-            var ClaimsList = await _context.Claims.ToListAsync();
-
-            return _context.Claims != null ?
-                        View(ClaimsList) :
-                        Problem("Entity set 'ApplicationDbContext.Claims'  is null.");
+              return _context.RoleEnabled != null ? 
+                          View(await _context.RoleEnabled.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.RoleEnabled'  is null.");
         }
 
-        // GET: Claims/Details/5
+        // GET: RoleEnableds/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Claims == null)
+            if (id == null || _context.RoleEnabled == null)
             {
                 return NotFound();
             }
 
-            var claims = await _context.Claims
-                .FirstOrDefaultAsync(m => m.ClaimsId == id);
-            if (claims == null)
+            var roleEnabled = await _context.RoleEnabled
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (roleEnabled == null)
             {
                 return NotFound();
             }
 
-            return View(claims);
+            return View(roleEnabled);
         }
 
-        // GET: Claims/Create
+        // GET: RoleEnableds/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Claims/Create
+        // POST: RoleEnableds/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClaimsId,ClaimsName")] Claims claims)
+        public async Task<IActionResult> Create([Bind("Id,AspNetRolesId,IsEnabled")] RoleEnabled roleEnabled)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(claims);
+                _context.Add(roleEnabled);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(claims);
+            return View(roleEnabled);
         }
 
-        // GET: Claims/Edit/5
+        // GET: RoleEnableds/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Claims == null)
+            if (id == null || _context.RoleEnabled == null)
             {
                 return NotFound();
             }
 
-            var claims = await _context.Claims.FindAsync(id);
-            if (claims == null)
+            var roleEnabled = await _context.RoleEnabled.FindAsync(id);
+            if (roleEnabled == null)
             {
                 return NotFound();
             }
-            return View(claims);
+            return View(roleEnabled);
         }
 
-        // POST: Claims/Edit/5
+        // POST: RoleEnableds/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClaimsId,ClaimsName")] Claims claims)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AspNetRolesId,IsEnabled")] RoleEnabled roleEnabled)
         {
-            if (id != claims.ClaimsId)
+            if (id != roleEnabled.Id)
             {
                 return NotFound();
             }
@@ -98,12 +99,12 @@ namespace App.Controllers
             {
                 try
                 {
-                    _context.Update(claims);
+                    _context.Update(roleEnabled);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClaimsExists(claims.ClaimsId))
+                    if (!RoleEnabledExists(roleEnabled.Id))
                     {
                         return NotFound();
                     }
@@ -114,49 +115,49 @@ namespace App.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(claims);
+            return View(roleEnabled);
         }
 
-        // GET: Claims/Delete/5
+        // GET: RoleEnableds/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Claims == null)
+            if (id == null || _context.RoleEnabled == null)
             {
                 return NotFound();
             }
 
-            var claims = await _context.Claims
-                .FirstOrDefaultAsync(m => m.ClaimsId == id);
-            if (claims == null)
+            var roleEnabled = await _context.RoleEnabled
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (roleEnabled == null)
             {
                 return NotFound();
             }
 
-            return View(claims);
+            return View(roleEnabled);
         }
 
-        // POST: Claims/Delete/5
+        // POST: RoleEnableds/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Claims == null)
+            if (_context.RoleEnabled == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Claims'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.RoleEnabled'  is null.");
             }
-            var claims = await _context.Claims.FindAsync(id);
-            if (claims != null)
+            var roleEnabled = await _context.RoleEnabled.FindAsync(id);
+            if (roleEnabled != null)
             {
-                _context.Claims.Remove(claims);
+                _context.RoleEnabled.Remove(roleEnabled);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClaimsExists(int id)
+        private bool RoleEnabledExists(int id)
         {
-            return (_context.Claims?.Any(e => e.ClaimsId == id)).GetValueOrDefault();
+          return (_context.RoleEnabled?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

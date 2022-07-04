@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\abedn\\Documents\\CBA\\App.csproj": {}
+    "C:\\Users\\abedn\\Downloads\\CBA\\App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\abedn\\Documents\\CBA\\App.csproj": {
+    "C:\\Users\\abedn\\Downloads\\CBA\\App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abedn\\Documents\\CBA\\App.csproj",
+        "projectUniqueName": "C:\\Users\\abedn\\Downloads\\CBA\\App.csproj",
         "projectName": "App",
-        "projectPath": "C:\\Users\\abedn\\Documents\\CBA\\App.csproj",
+        "projectPath": "C:\\Users\\abedn\\Downloads\\CBA\\App.csproj",
         "packagesPath": "C:\\Users\\abedn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abedn\\Documents\\CBA\\obj\\",
+        "outputPath": "C:\\Users\\abedn\\Downloads\\CBA\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\abedn\\AppData\\Roaming\\NuGet\\NuGet.Config",
