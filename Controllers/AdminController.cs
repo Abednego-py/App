@@ -42,6 +42,7 @@ namespace App.Controllers
                 {
                     Name = model.RoleName
                 };
+               
                 IdentityResult result = await roleManager.CreateAsync(identityRole);
                 if (result.Succeeded)
                 {
@@ -63,6 +64,20 @@ namespace App.Controllers
         {
             var roles = await roleManager.Roles.ToListAsync();
 
+            foreach (var item in roles)
+            {
+                RoleEnabled roleEnabled = new RoleEnabled
+
+                {
+                    AspNetRolesId = int.Parse(item.Id),
+                    IsEnabled = true
+                   
+                };
+                _context.Add(roleEnabled);
+                _context.SaveChanges();
+             }
+
+
             return View(roles);
         }
         [HttpGet]
@@ -70,7 +85,7 @@ namespace App.Controllers
         {
             ViewBag.RoleId = id;
             var role = await roleManager.FindByIdAsync(id);
-            var roleEnabled = _context.RoleEnabled.Where(c => id == c.Id.ToString()).FirstOrDefault();
+            //var roleEnabled = _context.RoleEnabled.Where(c => id == c.Id.ToString()).FirstOrDefault();
 
             if (role == null)
             {
@@ -84,7 +99,7 @@ namespace App.Controllers
             {
                 RoleName = role.Name,
                 RoleId = role.Id,
-                IsEnabled = roleEnabled.IsEnabled,
+                //IsEnabled = roleEnabled.IsEnabled,
                 Claims = roleClaims.Select(c => c.Value).ToList()
             };
             return View(model);
@@ -95,8 +110,8 @@ namespace App.Controllers
         {
             var role = await roleManager.FindByIdAsync(id);
 
-            var roleEnabled = _context.RoleEnabled.Where(c => id == c.Id.ToString()).FirstOrDefault();
-            roleEnabled.AspNetRolesId = Int32.Parse(id);
+            //var roleEnabled = _context.RoleEnabled.Where(c => id == c.Id.ToString()).FirstOrDefault();
+            //roleEnabled.AspNetRolesId = Int32.Parse(id);
 
 
             if (role == null)
@@ -108,8 +123,8 @@ namespace App.Controllers
             else
             {
                 role.Name = model.RoleName;
-                roleEnabled.IsEnabled = model.IsEnabled;
-                roleEnabled.AspNetRolesId = Int32.Parse(model.RoleId);
+                //roleEnabled.IsEnabled = model.IsEnabled;
+                //roleEnabled.AspNetRolesId = Int32.Parse(model.RoleId);
 
                 var result = await roleManager.UpdateAsync(role);
 

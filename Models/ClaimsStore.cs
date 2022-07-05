@@ -13,21 +13,16 @@ namespace App.Models
             _context = context;
         }
 
-        //    public static List<Claim> AllClaims = new List<Claim>()
-        //{
-        //    new Claim("Create new User", "Create new User"),
-        //    new Claim("Edit User details","Edit User details"),
-        //    new Claim("Create bank accounts","Create bank accounts"),
-        //    new Claim("EOD", "Perform calculations for EOD")
-        //};
-
         public static List<Claim> AllClaims = new List<Claim>();
 
         public static List<Claim> GetClaims(ApplicationDbContext _context)
         {
+            AllClaims = new List<Claim>();
+
             var claims = _context.Claims.ToList();
 
             foreach (var claim in claims)
+
 
             {
                 if (AllClaims.Count == claims.Count)
