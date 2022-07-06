@@ -12,14 +12,12 @@ namespace App.Controllers
     public class AdminController : Controller
     {
 
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<ApplicationRole> roleManager;
 
         private readonly ApplicationDbContext _context;
 
-        //private readonly IdentityRoleClaim<ClaimsIdentity> claimsManger;
-
-        //private readonly IdentityRoleClaim<IdentityRole> roleClaim;
-        public AdminController(RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
+       
+        public AdminController(RoleManager<ApplicationRole> roleManager, ApplicationDbContext context)
         {
             this.roleManager = roleManager;
             this._context = context;  
@@ -32,27 +30,30 @@ namespace App.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
             {
-                IdentityRole identityRole = new IdentityRole
+                
+                ApplicationRole applicationRole = new ApplicationRole
                 {
-                    Name = model.RoleName
+                    Name = model.RoleName,
+                    IsEnabled = model.IsEnabled,
+                    NormalizedName = model.RoleName.ToUpper(),
                 };
+
                
-                IdentityResult result = await roleManager.CreateAsync(identityRole);
-                if (result.Succeeded)
+
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("ListRoles", "admin");
+                    _context.Add(applicationRole);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(ListRoles));
                 }
 
-                foreach (IdentityError error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
+          
             }
 
             return View(model);
@@ -62,82 +63,78 @@ namespace App.Controllers
         [HttpGet]
         public async Task<IActionResult> ListRoles()
         {
-            var roles = await roleManager.Roles.ToListAsync();
+           
 
-            foreach (var item in roles)
-            {
-                RoleEnabled roleEnabled = new RoleEnabled
-
-                {
-                    AspNetRolesId = int.Parse(item.Id),
-                    IsEnabled = true
-                   
-                };
-                _context.Add(roleEnabled);
-                _context.SaveChanges();
-             }
-
-
-            return View(roles);
+            return _context.ApplicationRole != null ?
+                      View(await _context.ApplicationRole.ToListAsync()) :
+                      Problem("Entity set 'ApplicationDbContext.ApplicationRole'  is null.");
         }
+
+
         [HttpGet]
         public async Task<IActionResult> EditRole(string id)
         {
             ViewBag.RoleId = id;
-            var role = await roleManager.FindByIdAsync(id);
-            //var roleEnabled = _context.RoleEnabled.Where(c => id == c.Id.ToString()).FirstOrDefault();
+          
 
-            if (role == null)
+            if (id == null || _context.ApplicationRole == null)
             {
-                ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
-                return View("NotFound");
+                return NotFound();
+            }
+            var applicationRole = await _context.ApplicationRole.FindAsync(id);
+            if (applicationRole == null)
+            {
+                return NotFound();
             }
 
-            var roleClaims = await roleManager.GetClaimsAsync(role);
+           
+
+            var roleClaims = await roleManager.GetClaimsAsync(applicationRole);
+
 
             var model = new EditRoleViewModel
             {
-                RoleName = role.Name,
-                RoleId = role.Id,
-                //IsEnabled = roleEnabled.IsEnabled,
+                RoleName = applicationRole.Name,
+                RoleId = applicationRole.Id,
+                IsEnabled =  applicationRole.IsEnabled,
                 Claims = roleClaims.Select(c => c.Value).ToList()
             };
             return View(model);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> EditRole(EditRoleViewModel model, string id)
+        public async Task<IActionResult> EditRole(string id, EditRoleViewModel model)
         {
-            var role = await roleManager.FindByIdAsync(id);
+            
+            var applicationRole = await _context.ApplicationRole.FindAsync(id);
 
-            //var roleEnabled = _context.RoleEnabled.Where(c => id == c.Id.ToString()).FirstOrDefault();
-            //roleEnabled.AspNetRolesId = Int32.Parse(id);
-
-
-            if (role == null)
+            if (id != applicationRole.Id)
             {
-                ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
-                return View("NotFound");
+                return NotFound();
             }
 
-            else
+            if (ModelState.IsValid)
             {
-                role.Name = model.RoleName;
-                //roleEnabled.IsEnabled = model.IsEnabled;
-                //roleEnabled.AspNetRolesId = Int32.Parse(model.RoleId);
-
-                var result = await roleManager.UpdateAsync(role);
-
-                if (result.Succeeded)
+                applicationRole.Name = model.RoleName;
+                applicationRole.IsEnabled = model.IsEnabled;
+                
+                try
                 {
-                    return RedirectToAction("ListRoles");
+                    _context.Update(applicationRole);
+                    await _context.SaveChangesAsync();
                 }
-                foreach (IdentityError error in result.Errors)
+                catch (DbUpdateConcurrencyException)
                 {
-                    ModelState.AddModelError("", error.Description);
+                  
+                    return NotFound();
+                    
+                   
                 }
-                return View(model);
-            };
+                return RedirectToAction(nameof(ListRoles));
+            }
+
+            return View(model);
 
         }
 
@@ -146,24 +143,26 @@ namespace App.Controllers
         {
             //ViewBag.RoleId = roleId;    
 
-            var role = await roleManager.FindByIdAsync(roleId);
-            
+           
 
-            if (role == null)
+            var applicationRole = await _context.ApplicationRole.FindAsync(roleId);
+
+            if (applicationRole == null)
             {
                 ViewBag.ErrorMessage = $"Role with Id = {roleId} cannot be found";
                 return View("NotFound");
             }
 
-            var existingRoleClaims = await roleManager.GetClaimsAsync(role);
+           
+
+            var existingClaims = await roleManager.GetClaimsAsync(applicationRole);
+
 
             var model = new RoleClaimViewModel
             {
                 RoleId = roleId
             };
 
-            //var data = claimsstore.allclaims;
-            //var data_ = _context.Claims.ToListAsync();
 
             foreach (Claim claim in ClaimsStore.GetClaims(_context))
             {
@@ -172,7 +171,9 @@ namespace App.Controllers
                     ClaimType = claim.Type
                 };
 
-                if (existingRoleClaims.Any(c => c.Type == claim.Type))
+         
+
+                if (existingClaims.Any(c => c.Type == claim.Type))
                 {
                     roleClaims.IsSelected = true;
                 }
@@ -184,20 +185,26 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> ManageRoleClaims(RoleClaimViewModel model, string roleId)
         {
-            var role = await roleManager.FindByIdAsync(roleId);
 
-            if (role == null)
+
+            var applicationRole = await _context.ApplicationRole.FindAsync(roleId);
+
+
+
+            if (applicationRole == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {roleId} cannot be found";
                 return View("NotFound");
             }
 
-            // Get all the user existing claims and delete them
-            var claims = await roleManager.GetClaimsAsync(role);
+
+
+
+            var claims = await roleManager.GetClaimsAsync(applicationRole);
 
             foreach (var claim in claims)
             {
-                var result = await roleManager.RemoveClaimAsync(role, claim);
+                var result = await roleManager.RemoveClaimAsync(applicationRole, claim);
                 if (!result.Succeeded)
                 {
                     ModelState.AddModelError("", "Cannot remove user existing claims");
@@ -210,7 +217,7 @@ namespace App.Controllers
                
               foreach(var data in data_) 
             { 
-                var result_ = await roleManager.AddClaimAsync(role, data);
+                var result_ = await roleManager.AddClaimAsync(applicationRole, data);
 
             if (!result_.Succeeded)
             {

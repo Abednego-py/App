@@ -1,4 +1,5 @@
-﻿using App.ViewModels;
+﻿using App.Models;
+using App.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,10 @@ namespace App.Controllers
     public class UsersController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
 
-        public UsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> _roleManager)
+        public UsersController(UserManager<IdentityUser> userManager, RoleManager<ApplicationRole> _roleManager)
         {
             this.userManager = userManager;
             this._roleManager = _roleManager;
@@ -54,7 +55,7 @@ namespace App.Controllers
             return View(model);
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
@@ -157,6 +158,7 @@ namespace App.Controllers
             }
 
             var roles = await userManager.GetRolesAsync(user);
+
             var result = await userManager.RemoveFromRolesAsync(user, roles);
 
             if (!result.Succeeded)
@@ -164,6 +166,7 @@ namespace App.Controllers
                 ModelState.AddModelError("", "Cannot remove user existing roles");
                 return View(model);
             }
+            
 
             result = await userManager.AddToRolesAsync(user,
                 model.Where(x => x.IsSelected).Select(y => y.RoleName));

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220705122857_isEnabled")]
-    partial class isEnabled
+    [Migration("20220705172108_aspnetrolesupdate")]
+    partial class aspnetrolesupdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -163,31 +163,6 @@ namespace App.Data.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("GLCategory");
-                });
-
-            modelBuilder.Entity("App.Models.RoleEnabled", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AspNetRolesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AspNetRolesId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsEnabled")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AspNetRolesId1");
-
-                    b.ToTable("RoleEnabled");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -398,14 +373,14 @@ namespace App.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.AspNetRoles", b =>
+            modelBuilder.Entity("App.Models.ApplicationRole", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("bit");
 
-                    b.HasDiscriminator().HasValue("AspNetRoles");
+                    b.HasDiscriminator().HasValue("ApplicationRole");
                 });
 
             modelBuilder.Entity("App.Models.GlAccount", b =>
@@ -425,17 +400,6 @@ namespace App.Data.Migrations
                     b.Navigation("Branch");
 
                     b.Navigation("GlCategory");
-                });
-
-            modelBuilder.Entity("App.Models.RoleEnabled", b =>
-                {
-                    b.HasOne("App.Models.AspNetRoles", "AspNetRoles")
-                        .WithMany()
-                        .HasForeignKey("AspNetRolesId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AspNetRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
