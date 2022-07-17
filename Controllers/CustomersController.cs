@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App.Data;
 using App.Models;
+using App.Logic;
 
 namespace App.Controllers
 {
@@ -56,8 +57,10 @@ namespace App.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerID,FullName,Address,PhoneNumber,Email,Gender")] Customer customer)
+        public async Task<IActionResult> Create([Bind("CustomerID,FullName,Address,PhoneNumber,Email,Gender,IsActivated")] Customer customer)
         {
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(customer);
@@ -88,7 +91,7 @@ namespace App.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,FullName,Address,PhoneNumber,Email,Gender")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,FullName,Address,PhoneNumber,Email,Gender,IsActivated")] Customer customer)
         {
             if (id != customer.CustomerID)
             {

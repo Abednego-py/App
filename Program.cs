@@ -3,6 +3,8 @@ using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 //using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,16 +15,29 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+//builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+//var emailConfig = Configuration
+//        .GetSection("MailSettings")
+//        .Get<EmailConfiguration>();
+//builder.Services.AddSingleton(emailConfig);
+
+
+
 builder.Services.AddControllersWithViews();
 
-//builder.Services.Configure<MailSettings>(IConfiguration.GetSection("MailSettings"));
+builder.Services.AddTransient<Microsoft.AspNetCore.Identity.UI.Services.IEmailSender, EmailSender>();
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
+
 
 builder.Services.AddAuthorization(options =>
 {
-
+    options.AddPolicy("CBA001", policy => policy.RequireClaim("CBA001"));
 });
 
 var app = builder.Build();

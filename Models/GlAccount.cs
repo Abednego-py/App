@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Models
 {
-    public class GlAccount
+    public class GLAccount
     {
         public int ID { get; set; }
 
@@ -12,21 +11,22 @@ namespace App.Models
         public string AccountName { get; set; }
 
         [Display(Name = "Code")]
-        public long CodeNumber { get; set; }     ///(1 for Assets, 2 for Liablities, 3 for Capital, 4 for Income and 5 for Expenses)! Are these categories??
+        public long? CodeNumber { get; set; }     ///(1 for Assets, 2 for Liablities, 3 for Capital, 4 for Income and 5 for Expenses)! Are these categories??
 
         [Display(Name = "Account Balance")]
-        //[Column(TypeName = "decimal(18,4)")]
-        public decimal AccountBalance { get; set; }
+        public float AccountBalance { get; set; }
 
         [Required(ErrorMessage = "Please select a GL category")]
         [Display(Name = "Category")]
         public int GLCategoryID { get; set; }
 
-        public virtual GLCategory GlCategory { get; set; }
-
         [Required(ErrorMessage = "Please select a branch")]
         [Display(Name = "Branch")]
         public int BranchID { get; set; }
-        public virtual Branch Branch { get; set; }
+
+        public GLCategory GLCategory { get; set; }
+        public Branch Branch { get; set; }
+
+        public bool IsActivated { get; set; }
     }
 }

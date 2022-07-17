@@ -17,10 +17,165 @@ namespace App.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("App.Models.AccountConfiguration", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<decimal>("CurrentCot")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("CurrentCotIncomeGlID")
+                        .HasColumnType("int");
+
+                    b.Property<double>("CurrentCreditInterestRate")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("CurrentInterestExpenseGlID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CurrentInterestPayableGlID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CurrentMinimumBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("FinancialDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsBusinessOpen")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("LoanDebitInterestRate")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("LoanInterestExpenseGLID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LoanInterestIncomeGlID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LoanInterestReceivableGlID")
+                        .HasColumnType("int");
+
+                    b.Property<double>("SavingsCreditInterestRate")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("SavingsInterestExpenseGlID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SavingsInterestPayableGlID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SavingsMinimumBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CurrentCotIncomeGlID");
+
+                    b.HasIndex("CurrentInterestExpenseGlID");
+
+                    b.HasIndex("CurrentInterestPayableGlID");
+
+                    b.HasIndex("LoanInterestExpenseGLID");
+
+                    b.HasIndex("LoanInterestIncomeGlID");
+
+                    b.HasIndex("LoanInterestReceivableGlID");
+
+                    b.HasIndex("SavingsInterestExpenseGlID");
+
+                    b.HasIndex("SavingsInterestPayableGlID");
+
+                    b.ToTable("AccountConfiguration");
+                });
+
+            modelBuilder.Entity("App.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
 
             modelBuilder.Entity("App.Models.Branch", b =>
                 {
@@ -89,9 +244,11 @@ namespace App.Data.Migrations
                         .HasMaxLength(225)
                         .HasColumnType("nvarchar(225)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("bit");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -103,13 +260,13 @@ namespace App.Data.Migrations
                     b.ToTable("Customer");
                 });
 
-            modelBuilder.Entity("App.Models.GlAccount", b =>
+            modelBuilder.Entity("App.Models.CustomerAccount", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("AccountBalance")
                         .HasColumnType("decimal(18,2)");
@@ -119,14 +276,55 @@ namespace App.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<long?>("AccountNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Accounttype")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOpened")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerID");
+
+                    b.ToTable("CustomerAccount");
+                });
+
+            modelBuilder.Entity("App.Models.GLAccount", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<float>("AccountBalance")
+                        .HasColumnType("real");
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
                     b.Property<int>("BranchID")
                         .HasColumnType("int");
 
-                    b.Property<long>("CodeNumber")
+                    b.Property<long?>("CodeNumber")
                         .HasColumnType("bigint");
 
                     b.Property<int>("GLCategoryID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("bit");
 
                     b.HasKey("ID");
 
@@ -134,7 +332,7 @@ namespace App.Data.Migrations
 
                     b.HasIndex("GLCategoryID");
 
-                    b.ToTable("GlAccount");
+                    b.ToTable("GLAccount");
                 });
 
             modelBuilder.Entity("App.Models.GLCategory", b =>
@@ -155,12 +353,163 @@ namespace App.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<long?>("CodeNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
+
                     b.Property<int>("mainAccountCategory")
                         .HasColumnType("int");
 
                     b.HasKey("CategoryId");
 
                     b.ToTable("GLCategory");
+                });
+
+            modelBuilder.Entity("App.Models.GlPosting", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int?>("CrGlAccountID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CreditAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("DebitAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("DrGlAccountID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Narration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostInitiatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CrGlAccountID");
+
+                    b.HasIndex("DrGlAccountID");
+
+                    b.ToTable("GlPosting");
+                });
+
+            modelBuilder.Entity("App.Models.TellerPosting", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CustomerAccountID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("GLAccountID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Narration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostingType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CustomerAccountID");
+
+                    b.HasIndex("GLAccountID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TellerPosting");
+                });
+
+            modelBuilder.Entity("App.Models.Transaction", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SubCategory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("mainAccountCategory")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Transaction");
+                });
+
+            modelBuilder.Entity("App.Models.UserTill", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("GlAccountID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("GlAccountID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserTill");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -219,71 +568,6 @@ namespace App.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -381,7 +665,69 @@ namespace App.Data.Migrations
                     b.HasDiscriminator().HasValue("ApplicationRole");
                 });
 
-            modelBuilder.Entity("App.Models.GlAccount", b =>
+            modelBuilder.Entity("App.Models.AccountConfiguration", b =>
+                {
+                    b.HasOne("App.Models.GLAccount", "CurrentCotIncomeGl")
+                        .WithMany()
+                        .HasForeignKey("CurrentCotIncomeGlID");
+
+                    b.HasOne("App.Models.GLAccount", "CurrentInterestExpenseGl")
+                        .WithMany()
+                        .HasForeignKey("CurrentInterestExpenseGlID");
+
+                    b.HasOne("App.Models.GLAccount", "CurrentInterestPayableGl")
+                        .WithMany()
+                        .HasForeignKey("CurrentInterestPayableGlID");
+
+                    b.HasOne("App.Models.GLAccount", "LoanInterestExpenseGl")
+                        .WithMany()
+                        .HasForeignKey("LoanInterestExpenseGLID");
+
+                    b.HasOne("App.Models.GLAccount", "LoanInterestIncomeGl")
+                        .WithMany()
+                        .HasForeignKey("LoanInterestIncomeGlID");
+
+                    b.HasOne("App.Models.GLAccount", "LoanInterestReceivableGl")
+                        .WithMany()
+                        .HasForeignKey("LoanInterestReceivableGlID");
+
+                    b.HasOne("App.Models.GLAccount", "SavingsInterestExpenseGl")
+                        .WithMany()
+                        .HasForeignKey("SavingsInterestExpenseGlID");
+
+                    b.HasOne("App.Models.GLAccount", "SavingsInterestPayableGl")
+                        .WithMany()
+                        .HasForeignKey("SavingsInterestPayableGlID");
+
+                    b.Navigation("CurrentCotIncomeGl");
+
+                    b.Navigation("CurrentInterestExpenseGl");
+
+                    b.Navigation("CurrentInterestPayableGl");
+
+                    b.Navigation("LoanInterestExpenseGl");
+
+                    b.Navigation("LoanInterestIncomeGl");
+
+                    b.Navigation("LoanInterestReceivableGl");
+
+                    b.Navigation("SavingsInterestExpenseGl");
+
+                    b.Navigation("SavingsInterestPayableGl");
+                });
+
+            modelBuilder.Entity("App.Models.CustomerAccount", b =>
+                {
+                    b.HasOne("App.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("App.Models.GLAccount", b =>
                 {
                     b.HasOne("App.Models.Branch", "Branch")
                         .WithMany()
@@ -389,7 +735,7 @@ namespace App.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Models.GLCategory", "GlCategory")
+                    b.HasOne("App.Models.GLCategory", "GLCategory")
                         .WithMany()
                         .HasForeignKey("GLCategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -397,7 +743,66 @@ namespace App.Data.Migrations
 
                     b.Navigation("Branch");
 
-                    b.Navigation("GlCategory");
+                    b.Navigation("GLCategory");
+                });
+
+            modelBuilder.Entity("App.Models.GlPosting", b =>
+                {
+                    b.HasOne("App.Models.GLAccount", "CrGlAccount")
+                        .WithMany()
+                        .HasForeignKey("CrGlAccountID");
+
+                    b.HasOne("App.Models.GLAccount", "DrGlAccount")
+                        .WithMany()
+                        .HasForeignKey("DrGlAccountID");
+
+                    b.Navigation("CrGlAccount");
+
+                    b.Navigation("DrGlAccount");
+                });
+
+            modelBuilder.Entity("App.Models.TellerPosting", b =>
+                {
+                    b.HasOne("App.Models.CustomerAccount", "CustomerAccount")
+                        .WithMany()
+                        .HasForeignKey("CustomerAccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.GLAccount", "TillAccount")
+                        .WithMany()
+                        .HasForeignKey("GLAccountID");
+
+                    b.HasOne("App.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerAccount");
+
+                    b.Navigation("TillAccount");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("App.Models.UserTill", b =>
+                {
+                    b.HasOne("App.Models.GLAccount", "GLAccount")
+                        .WithMany()
+                        .HasForeignKey("GlAccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GLAccount");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -411,7 +816,7 @@ namespace App.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("App.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -420,7 +825,7 @@ namespace App.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("App.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -435,7 +840,7 @@ namespace App.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("App.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -444,7 +849,7 @@ namespace App.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("App.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

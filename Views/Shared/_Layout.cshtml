@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="~/App.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+
+   <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow" >
             <div class="container-fluid m-2">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">App</a>
@@ -23,34 +24,63 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text- dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 
                     </ul>
 
-                         <div class="dropdown" style="position:absolute; left:16%">
+                         <div class="dropdown" style="position:absolute; left:16%;">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Management
+                        Admin Management
                         </button>
                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glcategories" asp-action="index">GL Categories</a>
+                              
                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="users" asp-action="listusers">Users</a>
                              <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="admin" asp-action="listroles">Roles</a>
+                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="customers" asp-action="index">Customers</a>
                             <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="claims" asp-action="Index">Claims</a>
+                              <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="branches" asp-action="index">Branches</a>
+                              <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="usertills" asp-action="Index">Users Till</a>
+                              
                         </div>
                         </div>
 
-                           <div class="dropdown" style="position:absolute; left:28%">
+                           <div class="dropdown" style="position:absolute; left:31.5%">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Customers
+                        Account Management
                         </button>
                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    
-                              <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="customers" asp-action="index">Customers</a>
+                             <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glcategories" asp-action="index">GL Categories</a>
                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glaccounts" asp-action="index">GL Accounts</a>
-                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="branches" asp-action="index">Branches</a>
-                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="roleenableds" asp-action="index">Role Enabled</a>
+             
+                               
+                                 <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="accountconfigurations" asp-action="index">Account Configuration</a>
+
+                                   <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="customeraccounts" asp-action="index">Customer Account</a>
                        
+                        </div>
+
+
+                        </div>
+
+                        <div class="dropdown" style="position:absolute; left:48%">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Postings
+                        </button>
+                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glpostings" asp-action="index">GL Posting</a>
+                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="tellerpostings" asp-action="index">Teller Posting</a>
+                        </div>
+                        </div>
+
+                         <div class="dropdown" style="position:absolute; left:58%">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Financial Reports
+                        </button>
+                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glpostings" asp-action="index">Trial Balance</a>
+                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="tellerpostings" asp-action="index">Profit and Loss</a>
+                                 <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="tellerpostings" asp-action="index">Balance Sheet</a>
                         </div>
                         </div>
                            

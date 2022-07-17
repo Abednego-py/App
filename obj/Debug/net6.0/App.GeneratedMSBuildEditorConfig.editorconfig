@@ -175,6 +175,30 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/abedn/Downloads/CBA/Views/AccountConfigurations/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudENvbmZpZ3VyYXRpb25zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/AccountConfigurations/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudENvbmZpZ3VyYXRpb25zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/AccountConfigurations/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudENvbmZpZ3VyYXRpb25zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/AccountConfigurations/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudENvbmZpZ3VyYXRpb25zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/AccountConfigurations/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudENvbmZpZ3VyYXRpb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/AccountConfigurations/RunEOD.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudENvbmZpZ3VyYXRpb25zXFJ1bkVPRC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/abedn/Downloads/CBA/Views/Admin/CreateRole.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlUm9sZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -255,6 +279,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhaW1zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/abedn/Downloads/CBA/Views/CustomerAccounts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJBY2NvdW50c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/CustomerAccounts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJBY2NvdW50c1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/CustomerAccounts/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJBY2NvdW50c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/CustomerAccounts/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJBY2NvdW50c1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/CustomerAccounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJBY2NvdW50c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/abedn/Downloads/CBA/Views/Customers/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -275,24 +319,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/abedn/Downloads/CBA/Views/GlAccounts/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xBY2NvdW50c1xDcmVhdGUuY3NodG1s
+[C:/Users/abedn/Downloads/CBA/Views/GLAccounts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR0xBY2NvdW50c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/abedn/Downloads/CBA/Views/GlAccounts/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xBY2NvdW50c1xEZWxldGUuY3NodG1s
+[C:/Users/abedn/Downloads/CBA/Views/GLAccounts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR0xBY2NvdW50c1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/abedn/Downloads/CBA/Views/GlAccounts/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xBY2NvdW50c1xEZXRhaWxzLmNzaHRtbA==
+[C:/Users/abedn/Downloads/CBA/Views/GLAccounts/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR0xBY2NvdW50c1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/abedn/Downloads/CBA/Views/GlAccounts/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xBY2NvdW50c1xFZGl0LmNzaHRtbA==
+[C:/Users/abedn/Downloads/CBA/Views/GLAccounts/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR0xBY2NvdW50c1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/abedn/Downloads/CBA/Views/GlAccounts/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xBY2NvdW50c1xJbmRleC5jc2h0bWw=
+[C:/Users/abedn/Downloads/CBA/Views/GLAccounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR0xBY2NvdW50c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/abedn/Downloads/CBA/Views/GLCategories/Create.cshtml]
@@ -313,6 +357,30 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/abedn/Downloads/CBA/Views/GLCategories/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR0xDYXRlZ29yaWVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/GlPostings/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xQb3N0aW5nc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/GlPostings/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xQb3N0aW5nc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/GlPostings/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xQb3N0aW5nc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/GlPostings/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xQb3N0aW5nc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/GlPostings/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xQb3N0aW5nc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/GlPostings/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xQb3N0aW5nc1xOb3RGb3VuZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/abedn/Downloads/CBA/Views/Home/Index.cshtml]
@@ -339,6 +407,58 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/abedn/Downloads/CBA/Views/TellerPostings/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsbGVyUG9zdGluZ3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/TellerPostings/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsbGVyUG9zdGluZ3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/TellerPostings/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsbGVyUG9zdGluZ3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/TellerPostings/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsbGVyUG9zdGluZ3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/TellerPostings/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsbGVyUG9zdGluZ3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/TellerPostings/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsbGVyUG9zdGluZ3NcTm90Rm91bmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/TellerPostings/VaultIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsbGVyUG9zdGluZ3NcVmF1bHRJbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/TellerPostings/VaultOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVsbGVyUG9zdGluZ3NcVmF1bHRPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/Transactions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/Transactions/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/Transactions/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/Transactions/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/Transactions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/abedn/Downloads/CBA/Views/Users/EditUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdFVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -349,6 +469,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/abedn/Downloads/CBA/Views/Users/ManageUserRoles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcTWFuYWdlVXNlclJvbGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/UserTills/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclRpbGxzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/UserTills/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclRpbGxzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/UserTills/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclRpbGxzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/UserTills/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclRpbGxzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/abedn/Downloads/CBA/Views/UserTills/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclRpbGxzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/abedn/Downloads/CBA/Views/_ViewImports.cshtml]

@@ -4,16 +4,14 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h3 style="margin-left:14%; margin-top:20px; margin-bottom:40px">Edit Claim</h3>
 
-<h4>Claims</h4>
-<hr />
-<div class="row">
+<div class="row" style="margin-left:14%">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom:20px"></div>
             <input type="hidden" asp-for="ClaimsId" />
-            <div class="form-group">
+            <div class="form-group" style="margin-top:10px; margin-bottom:10px">
                 <label asp-for="ClaimsName" class="control-label"></label>
                 <input asp-for="ClaimsName" class="form-control" />
                 <span asp-validation-for="ClaimsName" class="text-danger"></span>
@@ -25,7 +23,7 @@
     </div>
 </div>
 
-<div>
+<div style="margin-left:14%">
     <a asp-action="Index">Back to List</a>
 </div>
 

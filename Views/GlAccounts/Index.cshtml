@@ -1,15 +1,15 @@
-﻿@model IEnumerable<App.Models.GlAccount>
+﻿@model IEnumerable<App.Models.GLAccount>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>GL Account Manager</h1>
 
-<p>
+<button class="btn btn-info" style="float:right">
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+</button>
+<table class="table table-hover m-2">
     <thead>
         <tr>
             <th>
@@ -22,10 +22,13 @@
                 @Html.DisplayNameFor(model => model.AccountBalance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GlCategory)
+                @Html.DisplayNameFor(model => model.GLCategory)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Branch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActivated)
             </th>
             <th></th>
         </tr>
@@ -43,10 +46,14 @@
                 @Html.DisplayFor(modelItem => item.AccountBalance)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GlCategory.CategoryDescription)
+                @Html.DisplayFor(modelItem => item.GLCategory.CategoryDescription)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Branch.Address)
+            </td>
+            <td>
+               @* @Html.DisplayFor(modelItem => item.IsActivated)*@
+                 @item.IsActivated
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

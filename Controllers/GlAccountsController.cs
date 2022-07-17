@@ -10,43 +10,43 @@ using App.Models;
 
 namespace App.Controllers
 {
-    public class GlAccountsController : Controller
+    public class GLAccountsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public GlAccountsController(ApplicationDbContext context)
+        public GLAccountsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: GlAccounts
+        // GET: GLAccounts
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.GlAccount.Include(g => g.Branch).Include(g => g.GlCategory);
+            var applicationDbContext = _context.GLAccount.Include(g => g.Branch).Include(g => g.GLCategory);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: GlAccounts/Details/5
+        // GET: GLAccounts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.GlAccount == null)
+            if (id == null || _context.GLAccount == null)
             {
                 return NotFound();
             }
 
-            var glAccount = await _context.GlAccount
+            var gLAccount = await _context.GLAccount
                 .Include(g => g.Branch)
-                .Include(g => g.GlCategory)
+                .Include(g => g.GLCategory)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (glAccount == null)
+            if (gLAccount == null)
             {
                 return NotFound();
             }
 
-            return View(glAccount);
+            return View(gLAccount);
         }
 
-        // GET: GlAccounts/Create
+        // GET: GLAccounts/Create
         public IActionResult Create()
         {
             ViewData["BranchID"] = new SelectList(_context.Branch, "Id", "Address");
@@ -54,64 +54,70 @@ namespace App.Controllers
             return View();
         }
 
-        // POST: GlAccounts/Create
+        // POST: GLAccounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,AccountName,CodeNumber,AccountBalance,GLCategoryID,BranchID")] GlAccount glAccount)
+        public async Task<IActionResult> Create([Bind("ID,AccountName,CodeNumber,AccountBalance,GLCategoryID,BranchID,IsActivated")] GLAccount gLAccount)
         {
-            if (ModelState.IsValid)
+            GLCategory glCategory = await _context.GLCategory.FindAsync(gLAccount.GLCategoryID);
+            Random random = new();
+
+            if (!ModelState.IsValid)
             {
-                _context.Add(glAccount);
+
+                gLAccount.CodeNumber = (long)(glCategory.CodeNumber + random.Next(10, 100));
+
+                _context.Add(gLAccount);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchID"] = new SelectList(_context.Branch, "Id", "Address", glAccount.BranchID);
-            ViewData["GLCategoryID"] = new SelectList(_context.GLCategory, "CategoryId", "CategoryDescription", glAccount.GLCategoryID);
-            return View(glAccount);
+            ViewData["BranchID"] = new SelectList(_context.Branch, "Id", "Address", gLAccount.BranchID);
+            ViewData["GLCategoryID"] = new SelectList(_context.GLCategory, "CategoryId", "CategoryDescription", gLAccount.GLCategoryID);
+            return View(gLAccount);
         }
 
-        // GET: GlAccounts/Edit/5
+        // GET: GLAccounts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.GlAccount == null)
+            if (id == null || _context.GLAccount == null)
             {
                 return NotFound();
             }
 
-            var glAccount = await _context.GlAccount.FindAsync(id);
-            if (glAccount == null)
+            var gLAccount = await _context.GLAccount.FindAsync(id);
+            if (gLAccount == null)
             {
                 return NotFound();
             }
-            ViewData["BranchID"] = new SelectList(_context.Branch, "Id", "Address", glAccount.BranchID);
-            ViewData["GLCategoryID"] = new SelectList(_context.GLCategory, "CategoryId", "CategoryDescription", glAccount.GLCategoryID);
-            return View(glAccount);
+            ViewData["BranchID"] = new SelectList(_context.Branch, "Id", "Address", gLAccount.BranchID);
+            ViewData["GLCategoryID"] = new SelectList(_context.GLCategory, "CategoryId", "CategoryDescription", gLAccount.GLCategoryID);
+            return View(gLAccount);
         }
 
-        // POST: GlAccounts/Edit/5
+        // POST: GLAccounts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,AccountName,CodeNumber,AccountBalance,GLCategoryID,BranchID")] GlAccount glAccount)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,AccountName,CodeNumber,AccountBalance,GLCategoryID,BranchID,IsActivated")] GLAccount gLAccount)
         {
-            if (id != glAccount.ID)
+            if (id != gLAccount.ID)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(glAccount);
+                    _context.Update(gLAccount);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GlAccountExists(glAccount.ID))
+                    if (!GLAccountExists(gLAccount.ID))
                     {
                         return NotFound();
                     }
@@ -122,53 +128,53 @@ namespace App.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchID"] = new SelectList(_context.Branch, "Id", "Address", glAccount.BranchID);
-            ViewData["GLCategoryID"] = new SelectList(_context.GLCategory, "CategoryId", "CategoryDescription", glAccount.GLCategoryID);
-            return View(glAccount);
+            ViewData["BranchID"] = new SelectList(_context.Branch, "Id", "Address", gLAccount.BranchID);
+            ViewData["GLCategoryID"] = new SelectList(_context.GLCategory, "CategoryId", "CategoryDescription", gLAccount.GLCategoryID);
+            return View(gLAccount);
         }
 
-        // GET: GlAccounts/Delete/5
+        // GET: GLAccounts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.GlAccount == null)
+            if (id == null || _context.GLAccount == null)
             {
                 return NotFound();
             }
 
-            var glAccount = await _context.GlAccount
+            var gLAccount = await _context.GLAccount
                 .Include(g => g.Branch)
-                .Include(g => g.GlCategory)
+                .Include(g => g.GLCategory)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (glAccount == null)
+            if (gLAccount == null)
             {
                 return NotFound();
             }
 
-            return View(glAccount);
+            return View(gLAccount);
         }
 
-        // POST: GlAccounts/Delete/5
+        // POST: GLAccounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.GlAccount == null)
+            if (_context.GLAccount == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.GlAccount'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.GLAccount'  is null.");
             }
-            var glAccount = await _context.GlAccount.FindAsync(id);
-            if (glAccount != null)
+            var gLAccount = await _context.GLAccount.FindAsync(id);
+            if (gLAccount != null)
             {
-                _context.GlAccount.Remove(glAccount);
+                _context.GLAccount.Remove(gLAccount);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GlAccountExists(int id)
+        private bool GLAccountExists(int id)
         {
-          return (_context.GlAccount?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.GLAccount?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

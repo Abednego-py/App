@@ -2,6 +2,6 @@
 {
     public enum MainAccountCategory
     {
-        Asset , Capital, Expenses, Income, Liability
+        Asset, Capital, Expenses, Income, Liability
     }
 }

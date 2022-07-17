@@ -10,9 +10,11 @@ using App.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using App.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class ApplicationRolesController : Controller
     {
         private readonly ApplicationDbContext _context;

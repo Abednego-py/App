@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App.Data;
 using App.Models;
+using App.Logic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class GLCategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -56,11 +59,15 @@ namespace App.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDescription,mainAccountCategory")] GLCategory gLCategory)
+        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDescription,CodeNumber,IsEnabled,mainAccountCategory")] GLCategory gLCategory)
         {
             if (ModelState.IsValid)
             {
+                GLCategoryLogic gLCategoryLogic = new();
+                gLCategory.CodeNumber = gLCategoryLogic.GenerateGLCategoryCodeNumber(gLCategory.mainAccountCategory, gLCategory.CategoryId);
+
                 _context.Add(gLCategory);
+              
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -88,7 +95,7 @@ namespace App.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,CategoryDescription,mainAccountCategory")] GLCategory gLCategory)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,CategoryDescription,CodeNumber,IsEnabled,mainAccountCategory")] GLCategory gLCategory)
         {
             if (id != gLCategory.CategoryId)
             {

@@ -1,16 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Models
 {
     public class AccountConfiguration
     {
         public int ID { get; set; }
+
         [Display(Name = "Business Status")]
         public bool IsBusinessOpen { get; set; }
 
         public DateTime FinancialDate { get; set; }
-
-        //Savings
 
         [Display(Name = "Savings Credit Interest Rate")]
         [Range(0, 100)]
@@ -25,11 +25,11 @@ namespace App.Models
 
         [Display(Name = "Select Interest Expense GL")]
         public int? SavingsInterestExpenseGlID { get; set; }
-        public virtual GlAccount SavingsInterestExpenseGl { get; set; }
+        public virtual GLAccount SavingsInterestExpenseGl { get; set; }
 
         [Display(Name = "Select Interest Payable GL")]
         public int? SavingsInterestPayableGlID { get; set; }
-        public virtual GlAccount SavingsInterestPayableGl { get; set; }
+        public virtual GLAccount SavingsInterestPayableGl { get; set; }
 
 
         //current account side
@@ -52,15 +52,15 @@ namespace App.Models
 
         [Display(Name = "Select Interest Expense GL")]
         public int? CurrentInterestExpenseGlID { get; set; }
-        public virtual GlAccount CurrentInterestExpenseGl { get; set; }
+        public virtual GLAccount CurrentInterestExpenseGl { get; set; }
 
         [Display(Name = "Select COT Income GL")]
         public int? CurrentCotIncomeGlID { get; set; }
-        public virtual GlAccount CurrentCotIncomeGl { get; set; }
+        public virtual GLAccount CurrentCotIncomeGl { get; set; }
 
         [Display(Name = "Select Interest Payable GL")]
         public int? CurrentInterestPayableGlID { get; set; }
-        public virtual GlAccount CurrentInterestPayableGl { get; set; }
+        public virtual GLAccount CurrentInterestPayableGl { get; set; }
 
 
         //Loan account side
@@ -71,15 +71,14 @@ namespace App.Models
 
         [Display(Name = "Select Interest Income GL")]
         public int? LoanInterestIncomeGlID { get; set; }
-        public virtual GlAccount LoanInterestIncomeGl { get; set; }
+        public virtual GLAccount LoanInterestIncomeGl { get; set; }
 
         [Display(Name = "Select Interest Expense GL")]
         public int? LoanInterestExpenseGLID { get; set; }
-        public virtual GlAccount LoanInterestExpenseGl { get; set; }        //Expense: from where the loan is disbursed
+        public virtual GLAccount LoanInterestExpenseGl { get; set; }        //Expense: from where the loan is disbursed
 
         [Display(Name = "Select Interest Receivable GL")]
         public int? LoanInterestReceivableGlID { get; set; }
-        public virtual GlAccount LoanInterestReceivableGl { get; set; }     //Asset
+        public virtual GLAccount LoanInterestReceivableGl { get; set; }     //Asset
     }
 }
-

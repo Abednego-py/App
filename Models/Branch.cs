@@ -8,6 +8,7 @@ namespace App.Models
         {
             Closed, Open
         }
+        [Key]
         public int Id { get; set; }
 
         [Required]  

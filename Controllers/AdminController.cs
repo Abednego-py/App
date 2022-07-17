@@ -9,6 +9,7 @@ using System.Security.Claims;
 
 namespace App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
 

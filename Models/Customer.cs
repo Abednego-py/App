@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using App.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Models
 {
@@ -19,7 +20,6 @@ namespace App.Models
         public string Address { get; set; }
 
         [Required]
-        [Phone]
         [DataType(DataType.PhoneNumber)]
         [StringLength(11, ErrorMessage = "Telephone Number cannot be less than 11 letters", MinimumLength = 11)]
         [Display(Name = "Telephone Number")]
@@ -33,6 +33,10 @@ namespace App.Models
 
         [Required]
         [Display(Name = "Gender")]
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
+
+        public bool IsActivated { get; set; }
+
     }
 }
+

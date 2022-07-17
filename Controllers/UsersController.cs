@@ -10,11 +10,11 @@ namespace App.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
 
 
-        public UsersController(UserManager<IdentityUser> userManager, RoleManager<ApplicationRole> _roleManager)
+        public UsersController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> _roleManager)
         {
             this.userManager = userManager;
             this._roleManager = _roleManager;
@@ -48,7 +48,9 @@ namespace App.Controllers
                 Email = user.Email,
                 UserName = user.UserName,
                 PhoneNumber = user.PhoneNumber,
-
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                IsEnabled = user.IsEnabled,
                 Roles = userRoles
                 
             };
@@ -71,7 +73,9 @@ namespace App.Controllers
                 user.Email = model.Email;
                 user.UserName = model.UserName;
                 user.PhoneNumber = model.PhoneNumber;   
-                
+                user.IsEnabled = model.IsEnabled;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
 
                 var result = await userManager.UpdateAsync(user);
 
@@ -95,7 +99,7 @@ namespace App.Controllers
         //{
         //    var users = await userManager.Users.ToListAsync();
         //    var userRolesViewModel = new List<UserRolesViewModel>();
-        //    foreach (IdentityUser user in users)
+        //    foreach (ApplicationUser user in users)
         //    {
         //        var thisViewModel = new UserRolesViewModel();
         //        thisViewModel.UserId = user.Id;
@@ -151,11 +155,14 @@ namespace App.Controllers
         {
             var user = await userManager.FindByIdAsync(userId);
 
+            var allRoles = await _roleManager.Roles.ToListAsync();
+
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
                 return View("NotFound");
             }
+
 
             var roles = await userManager.GetRolesAsync(user);
 
@@ -167,9 +174,20 @@ namespace App.Controllers
                 return View(model);
             }
             
+            //foreach (var role in allRoles)
+            //{
+            //    if(role.IsEnabled == true)
+            //    {
+                    result = await userManager.AddToRolesAsync(user,
+                        model.Where(x => x.IsSelected).Select(y => y.RoleName));
+            //    }
+            //    ModelState.AddModelError("", "Cannot add role to user");
+            //    return View(model);
 
-            result = await userManager.AddToRolesAsync(user,
-                model.Where(x => x.IsSelected).Select(y => y.RoleName));
+            //}
+
+            //result = await userManager.AddToRolesAsync(user,
+            //    model.Where(x => x.IsSelected).Select(y => y.RoleName));
 
             if (!result.Succeeded)
             {
@@ -179,5 +197,24 @@ namespace App.Controllers
 
             return RedirectToAction("EditUser", new { Id = userId });
         }
+
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null || _userManager.)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var claims = await _context.Claims
+        //        .FirstOrDefaultAsync(m => m.ClaimsId == id);
+        //    if (claims == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(claims);
+        //}
     }
+
+
 }
