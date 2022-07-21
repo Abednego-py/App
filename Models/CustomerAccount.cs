@@ -32,6 +32,7 @@ namespace App.Models
         //[DisplayName("Loan Account")]
         //public LoanAccount LoanAccount { get; set; }
 
+        [Display(Name = "Customer Account Active")]
         public bool IsActivated { get; set; }
 
     }

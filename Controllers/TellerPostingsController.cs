@@ -11,6 +11,7 @@ using App.Logic;
 using App.Enums;
 using App.ViewModels;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace App.Controllers
 {
@@ -18,11 +19,12 @@ namespace App.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public TellerPostingsController(ApplicationDbContext context)
+        public TellerPostingsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            this.userManager = userManager;
         }
 
         // GET: TellerPostings
@@ -57,7 +59,7 @@ namespace App.Controllers
         public IActionResult Create()
         {
             ViewData["CustomerAccountID"] = new SelectList(_context.CustomerAccount, "Id", "AccountName");
-            ViewData["GLAccountID"] = new SelectList(_context.GLAccount.Where(a => a.AccountName.ToLower() == "till").ToList(), "ID", " Code");
+            ViewData["GLAccountID"] = new SelectList(_context.GLAccount.Where(a => a.AccountName.ToLower() == "till").ToList(), "ID", "AccountName");
             //ViewData["GLAccountID"] = new SelectList(_context.GLAccount, "ID", "AccountName");
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
             return View();
@@ -72,20 +74,24 @@ namespace App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                string tellerId = tellerPosting.UserId;
+                var user = await GetCurrentUserAsync();
+                var userId = user?.Id;
+
+                //string tellerId = tellerPosting.UserId;
 
                 TellerPostingLogic telPostLogic = new TellerPostingLogic(_context);
                 CustomerAccountLogic custActLogic = new CustomerAccountLogic(_context);
 
-                bool tellerHasTill = _context.UserTill.Any(tu => tu.UserId.Equals(tellerId));
+                bool tellerHasTill = _context.UserTill.Any(tu => tu.UserId.Equals(userId));
                 if (!tellerHasTill)
                 {
                     Problem("No till associated with logged in teller");
-                    return View("NotFound");
+                    return NotFound();
                 }
                 // get user's till and do the necessary calculation
+                tellerPosting.UserId = userId;
 
-                int tillId = _context.UserTill.Where(tu => tu.UserId.Equals(tellerId)).First().GlAccountID;
+                int tillId = _context.UserTill.Where(tu => tu.UserId.Equals(userId)).First().GlAccountID;
 
                 tellerPosting.GLAccountID = tillId;
 
@@ -93,7 +99,7 @@ namespace App.Controllers
 
                 var custAcct = _context.CustomerAccount.Find(tellerPosting.CustomerAccountID);
 
-                tellerPosting.UserId = tellerId;
+                //tellerPosting.UserId = tellerId;
 
                 tellerPosting.Date = DateTime.Now;
 
@@ -152,9 +158,9 @@ namespace App.Controllers
 
                     return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerAccountID"] = new SelectList(_context.CustomerAccount, "Id", "AccountName", tellerPosting.CustomerAccountID);
-            ViewData["GLAccountID"] = new SelectList(_context.GLAccount.Where(a => a.AccountName.ToLower() == "till").ToList(), "ID", "AccountName", tellerPosting.GLAccountID);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName", tellerPosting.UserId);
+            ViewData["CustomerAccountID"] = new SelectList(_context.CustomerAccount, "Id", "AccountNumber", tellerPosting.CustomerAccountID);
+            //ViewData["GLAccountID"] = new SelectList(_context.GLAccount.Where(a => a.AccountName.ToLower() == "till").ToList(), "ID", "AccountName", tellerPosting.GLAccountID);
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName", tellerPosting.UserId);
             return View(tellerPosting);
         }
 
@@ -258,46 +264,48 @@ namespace App.Controllers
         private bool TellerPostingExists(int id)
         {
           return (_context.TellerPosting?.Any(e => e.ID == id)).GetValueOrDefault();
-        }
+        }     
 
-
-        public IActionResult VaultIn()
+        [HttpGet]
+        public IActionResult VerifyCustomer()
         {
             return View();
         }
 
 
-       [HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> VaultIn(VaultInViewModel vaultInViewModel)
+        public async Task<IActionResult> VerifyCustomer(VerifyCustomerViewModel verifyCustomerViewModel)
         {
-
-            var glacct = _context.GLAccount.Where(a => a.AccountName.ToLower() == "vault").First();
-
-
-            var tillAcct = _context.GLAccount.Where(a => a.CodeNumber == (long)vaultInViewModel.CodeNumber).First();
-
-            if(glacct.AccountBalance > (float)vaultInViewModel.Amount)
+            try
             {
-                tillAcct.AccountBalance += (float)vaultInViewModel.Amount;
+                var acctNum = _context.CustomerAccount.Where(a => a.AccountNumber == verifyCustomerViewModel.AccountNumber).First();
+                if (acctNum != null)
+                {
+                   
 
-                glacct.AccountBalance -= (float)vaultInViewModel.Amount;
+                    ViewBag.AccountName = acctNum.AccountName;
+                    ViewBag.AccountType = acctNum.Accounttype;
+                    ViewBag.AccountNumber = acctNum.AccountNumber;
+                    ViewBag.CustomerId = acctNum.CustomerID;
+                    ViewBag.DateOpened = acctNum.DateOpened;
+                    ViewBag.AccountBalance = acctNum.AccountBalance;
+                    ViewBag.IsActivated = acctNum.IsActivated;
+
+
+                    return View(verifyCustomerViewModel);
+                }
+
             }
-          
-
-            return View(vaultInViewModel);
-        }
-        public async Task<IActionResult> VaultOut()
-        {
+            catch
+            {
+                return View();
+            }
+                
             return View();
         }
 
-        private string GetLoggedInUser()
-        {
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
 
-            return (User.Identity as ClaimsIdentity).Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value;
-            
-        }
     }
 }

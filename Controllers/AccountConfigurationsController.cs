@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers
 {
-    [Authorize(Policy = "CBA001")]
+   // [Authorize(Policy = "CBA001")]
     public class AccountConfigurationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -258,10 +258,10 @@ namespace App.Controllers
             ViewBag.SavingsInterestPayableGlID = new SelectList(allliability, "ID", "AccountName", accountConfiguration.SavingsInterestPayableGlID);
         }
 
-        public async Task<IActionResult> RunEOD()
+        public async Task<IActionResult> RunEOD(AccountConfiguration accountConfiguration)
         {
 
-            return View();
+            return View(accountConfiguration);
         }
 
     }

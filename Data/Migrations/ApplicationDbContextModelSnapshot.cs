@@ -410,6 +410,52 @@ namespace App.Data.Migrations
                     b.ToTable("GlPosting");
                 });
 
+            modelBuilder.Entity("App.Models.LoanAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("BranchID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("InterestRate")
+                        .IsRequired()
+                        .HasColumnType("float");
+
+                    b.Property<decimal>("LoanAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<double>("NumberOfYears")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ServicingAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<int>("TermsOfLoan")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchID");
+
+                    b.HasIndex("CustomerAccountId");
+
+                    b.ToTable("LoanAccount");
+                });
+
             modelBuilder.Entity("App.Models.TellerPosting", b =>
                 {
                     b.Property<int>("ID")
@@ -759,6 +805,25 @@ namespace App.Data.Migrations
                     b.Navigation("CrGlAccount");
 
                     b.Navigation("DrGlAccount");
+                });
+
+            modelBuilder.Entity("App.Models.LoanAccount", b =>
+                {
+                    b.HasOne("App.Models.Branch", "branch")
+                        .WithMany()
+                        .HasForeignKey("BranchID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.CustomerAccount", "CustomerAccount")
+                        .WithMany()
+                        .HasForeignKey("CustomerAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerAccount");
+
+                    b.Navigation("branch");
                 });
 
             modelBuilder.Entity("App.Models.TellerPosting", b =>

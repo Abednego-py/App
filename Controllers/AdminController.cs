@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace App.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
 
@@ -24,7 +24,7 @@ namespace App.Controllers
             this._context = context;  
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult CreateRole()
         {
@@ -60,7 +60,7 @@ namespace App.Controllers
             return View(model);
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpGet]
         public async Task<IActionResult> ListRoles()
         {

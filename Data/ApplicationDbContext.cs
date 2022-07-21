@@ -33,6 +33,8 @@ namespace App.Data
     
         public DbSet<App.Models.Transaction>? Transaction { get; set; }
     
+        public DbSet<App.Models.LoanAccount>? LoanAccount { get; set; }
+    
 
    
     }

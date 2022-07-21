@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    //[Authorize(Roles ="Admin")]
     public class BranchesController : Controller
     {
         private readonly ApplicationDbContext _context;

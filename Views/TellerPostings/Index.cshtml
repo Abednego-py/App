@@ -10,9 +10,9 @@
 
     <a asp-action="Create" class="col-md-3 ">Create New</a>
 
-    <a asp-action="VaultIn" class="col-md-2">Vault In</a>
+ @*   <a asp-action="VaultIn" class="col-md-2">Vault In</a>
 
-    <a asp-action="VaultOut" class="col-md-2">Vault Out</a>
+    <a asp-action="VaultOut" class="col-md-2">Vault Out</a>*@
 </div>
 
 <table class="table table-hover m-2">
@@ -74,7 +74,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">View Transaction</a> |
                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>

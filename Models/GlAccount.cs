@@ -27,6 +27,7 @@ namespace App.Models
         public GLCategory GLCategory { get; set; }
         public Branch Branch { get; set; }
 
+        [Display(Name = "GL Account Enabled")]
         public bool IsActivated { get; set; }
     }
 }

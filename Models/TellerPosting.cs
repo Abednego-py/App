@@ -25,7 +25,7 @@ namespace App.Models
 
         [Display(Name = "Account")]
         public int CustomerAccountID { get; set; }
-        public virtual CustomerAccount CustomerAccount { get; set; }
+        public virtual CustomerAccount? CustomerAccount { get; set; }
 
 
         //[Required(ErrorMessage = "Select a User")]
@@ -36,12 +36,12 @@ namespace App.Models
 
         [Required(ErrorMessage = "Select a User")]
         [Display(Name = "Post Initiator")]
-        public string UserId { get; set; }  
-        public ApplicationUser User { get; set; }
+        public string? UserId { get; set; }  
+        public ApplicationUser? User { get; set; }
 
         [Display(Name = "Till Account")]
         public int? GLAccountID { get; set; }
-        public virtual GLAccount TillAccount { get; set; }
+        public virtual GLAccount? TillAccount { get; set; }
 
         [Display(Name = "Post Status")]
         public PostStatus Status { get; set; }

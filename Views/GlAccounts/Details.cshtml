@@ -4,12 +4,13 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>GLAccount</h4>
-    <hr />
-    <dl class="row">
+<div class="margin-left:14%">
+    <h4 style="margin-left:14%">GLAccount Details</h4>
+
+    <br />
+ 
+    <dl class="row" style="margin-left:14%">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AccountName)
         </dt>
@@ -48,7 +49,9 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="row w-75" style="margin-left:13%">
+    <a asp-action="Edit" asp-route-id="@Model?.ID" class="col-md-2">Edit</a> |
+    <a asp-action="Index" class="col-md-2">Back to List</a> |
+    <a asp-action="VaultIn" asp-controller="glaccounts" class="col-md-2" class="col-md-2">Vault In</a> |
+    <a asp-action="VaultOut" asp-controller="glaccounts" class="col-md-2" class="col-md-2">Vault Out</a>
 </div>

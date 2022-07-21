@@ -11,7 +11,7 @@ namespace App.ViewModels
         [Required]
         public decimal Amount { get; set; }
 
-       public long CodeNumber { get; set; }  
+       public int CodeNumber { get; set; }  
 
     }
 }

@@ -94,6 +94,16 @@ namespace App.Controllers
                     crAct.AccountBalance += (float)glPosting.CreditAmount;
                     drAct.AccountBalance -= (float)glPosting.DebitAmount;
                 }
+
+                //var transaction = new Transaction
+                //{
+                //    Amount = glPosting.CreditAmount,
+                //    Date = DateTime.Now,
+                //    AccountName = drAct.AccountName,
+                //    SubCategory = drAct.GLCategory.CategoryName.ToString(),
+                //    mainAccountCategory = drAct.GLCategory.mainAccountCategory
+
+                //};
               
                 _context.Add(glPosting);
                 await _context.SaveChangesAsync();

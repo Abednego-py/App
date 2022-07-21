@@ -71,14 +71,14 @@
         </td>
 
         <td>
-            @if (Model.SavingsInterestExpenseGl == null)
+           @* @if (Model.SavingsInterestExpenseGl == null)
             {
                 @Html.DisplayName("Not Configured")
             }
             else
-            {
+            {*@
                 @Html.DisplayFor(model => model.SavingsInterestExpenseGl.AccountName)
-            }                   
+        @*    }   *@                
         </td>
     </tr>
     <tr>
@@ -87,14 +87,14 @@
         </td>
 
         <td>
-            @if (Model.SavingsInterestPayableGl == null)
+           @* @if (Model.SavingsInterestPayableGl == null)
             {
                 @Html.DisplayName("Not Configured")
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.SavingsInterestPayableGl.AccountName)
-            }                    
+            }*@
+        @*    else
+            {*@
+                @Html.DisplayFor(model => model.SavingsInterestPayableGl)
+          @*  }  *@                  
         </td>
     </tr>
     <tr>

@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
+using App.Services;
+using MimeKit;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Areas.Identity.Pages.Account
 {
@@ -134,6 +137,7 @@ namespace App.Areas.Identity.Pages.Account
             return new string(chars);
         }
 
+       
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -142,13 +146,19 @@ namespace App.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.FirstName + Input.LastName, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.PhoneNumber = Input.PhoneNumber;
+                
+                string pass = "";
+                pass = CreateRandomPassword();
+                
 
-                var result = await _userManager.CreateAsync(user, CreateRandomPassword());
+                await _userStore.SetUserNameAsync(user, Input.FirstName + Input.LastName, CancellationToken.None);
+                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                
+                var result = await _userManager.CreateAsync(user, pass);
 
                 if (result.Succeeded)
                 {
@@ -163,8 +173,15 @@ namespace App.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    string message = $"Your password is " + pass + " Your username is " + Input.FirstName + Input.LastName;
+
+                    //string output = message + " " + $"Please confirm your account by <a href = '{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+                    
+
+
+
+
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", message);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

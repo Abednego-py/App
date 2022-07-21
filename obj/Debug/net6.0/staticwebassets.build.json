@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7O6ZDfvKpz3gk0O4ht5EvgGQ96LyLQeF5ubCzoVt1fM=",
+  "Hash": "3+iMKOygsq0xDRNl55dD6fHEGoyOzbLz7UFkhdAOIJM=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\abedn\\Downloads\\CBA\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\App.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\abedn\\Downloads\\CBA\\wwwroot\\css\\bootstrap.min.css",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\abedn\\Downloads\\CBA\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "css/bootstrap.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
       "Identity": "C:\\Users\\abedn\\Downloads\\CBA\\wwwroot\\css\\site.css",

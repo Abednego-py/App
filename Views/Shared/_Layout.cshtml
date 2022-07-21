@@ -5,8 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - App</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/App.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <meta http-equiv="Page-Enter" content="revealTrans(Duration=1,Transition=12)">
+     <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Wheel(duration=1, spokes=20)">
+
+     <style>
+
+    .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; 
+ }
+ .dropdown {
+     background-color:none;
+     color:grey !important;
+ }
+ .dropdown-toggle, button {
+     border : none;
+   /*  color: goldenrod;*/
+     background-color:none;
+ }
+ .dropdown p {
+     margin-top:14px;
+ }
+ header, nav {
+     color:goldenrod !important;
+     background-color: lightblue !important;
+ }
+     </style>
 </head>
 <body>
 
@@ -20,19 +48,19 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                       @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        </li>*@
                         <li class="nav-item">
                             <a class="nav-link text- dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 
                     </ul>
 
-                         <div class="dropdown" style="position:absolute; left:16%;">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                         <div class="dropdown" style="position:absolute; left:11%;">
+                        <p class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         Admin Management
-                        </button>
+                        </p>
                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                               
                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="users" asp-action="listusers">Users</a>
@@ -45,10 +73,10 @@
                         </div>
                         </div>
 
-                           <div class="dropdown" style="position:absolute; left:31.5%">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                           <div class="dropdown" style="position:absolute; left:24%">
+                        <p class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         Account Management
-                        </button>
+                        </p>
                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                              <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glcategories" asp-action="index">GL Categories</a>
                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glaccounts" asp-action="index">GL Accounts</a>
@@ -57,30 +85,30 @@
                                  <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="accountconfigurations" asp-action="index">Account Configuration</a>
 
                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="customeraccounts" asp-action="index">Customer Account</a>
-                       
+                                   <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="loanaccounts" asp-action="index">Loan Account</a>
                         </div>
 
 
                         </div>
 
-                        <div class="dropdown" style="position:absolute; left:48%">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="dropdown" style="position:absolute; left:38%">
+                        <p class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         Postings
-                        </button>
+                        </p>
                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glpostings" asp-action="index">GL Posting</a>
-                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="tellerpostings" asp-action="index">Teller Posting</a>
+                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="tellerpostings" asp-action="verifycustomer">Teller Posting</a>
                         </div>
                         </div>
 
-                         <div class="dropdown" style="position:absolute; left:58%">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                         <div class="dropdown" style="position:absolute; left:46%">
+                        <p class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         Financial Reports
-                        </button>
+                        </p>
                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="glpostings" asp-action="index">Trial Balance</a>
-                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="tellerpostings" asp-action="index">Profit and Loss</a>
-                                 <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="tellerpostings" asp-action="index">Balance Sheet</a>
+                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="financialreports" asp-action="trialbalance">Trial Balance</a>
+                               <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="financialreports" asp-action="profitandloss">Profit and Loss</a>
+                                 <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="financialreports" asp-action="balancesheet">Balance Sheet</a>
                         </div>
                         </div>
                            
@@ -91,7 +119,7 @@
             </div>
         </nav>
     </header>
-    <div class="container m-0 p-0 w-100">
+    <div class="container m-0 p-0 w-100 content">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

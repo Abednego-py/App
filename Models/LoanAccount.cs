@@ -1,41 +1,63 @@
-﻿using System.ComponentModel;
+﻿using App.Enums;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Models
 {
     public class LoanAccount 
     {
-        public LoanAccount()
-        {
-            RepaymentFrequencyMonths = 1;
-            StartDate = DateTime.Now;
-        }
+        //public LoanAccount()
+        //{
+        //    RepaymentFrequencyMonths = 1;
+        //    StartDate = DateTime.Now;
+        //}
+        public int Id { get; set; }
 
         [DisplayName("Linked Account")]
-        public CustomerAccount CustomerAccount { get; set; }
         public int CustomerAccountId { get; set; }
+        public virtual CustomerAccount CustomerAccount { get; set; }
+       
 
-        [DisplayName("Principal Amount")]
-        public float Principal { get; set; }
 
-        [DisplayName("% Interest Rate")]
-        public double InterestRate { get; set; }
+        [Required(ErrorMessage = "Account name is required")]
+        [RegularExpression(@"^[ a-zA-Z]+$", ErrorMessage = "Account name should only contain characters and white spaces"), MaxLength(40)]
+        [Display(Name = "Account Name")]
+        public string AccountName { get; set; }
 
-        [DisplayName("Duration in Years")]
-        public float DurationYears { get; set; }
+        [Required]
+        [DataType(DataType.Currency)]
+        [Range(1000.00, (double)decimal.MaxValue, ErrorMessage = "Loan amount must be between #1,000 and a maximum reasonable amount")]
+        [Display(Name = "Loan Amount")]
+        public decimal LoanAmount { get; set; }
 
-        [DisplayName("Compound Interest")]
-        public double CompoundInterest { get; set; }
+        [Required]
+        [Display(Name = "Terms of loan")]
+        public TermsOfLoan TermsOfLoan { get; set; }
 
-        [DisplayName("Repayment Amount Per Time")]
-        public double RepaymentAmountPerTime { get; set; }
+        [Required(ErrorMessage = "Number of years is required")]
+        [Range(0.084, 1000.0)]
+        [RegularExpression(@"^[.0-9]+$", ErrorMessage = "Invalid format")]
+        [Display(Name = "Number of years")]
+        public double NumberOfYears { get; set; }
 
-        [DisplayName("Repayment Frequency in Months")]
-        public float RepaymentFrequencyMonths { get; set; }
+        [Required(ErrorMessage = "Interest rate is required")]
+        [Display(Name = "Interest Rate")]
+        [Range(0, 100)]
+        [RegularExpression(@"^[.0-9]+$", ErrorMessage = "Invalid format")]
+        public double? InterestRate { get; set; }
 
-        [DisplayName("Start Date")]
-        public DateTime StartDate { get; set; }
 
-        [DisplayName("Daily Accrual Balance")]
-        public double AccrualBalance { get; set; }
+        [Required]
+        [Display(Name = "Servicing Account Number")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Account number should only contain numbers"), MinLength(10), MaxLength(11)]
+        public string? ServicingAccountNumber { get; set; }
+
+
+        [Required(ErrorMessage = "Please select a branch")]
+        [Display(Name = "Branch")]
+        public int BranchID { get; set; }
+        public virtual Branch branch { get; set; }
+       
+
     }
 }

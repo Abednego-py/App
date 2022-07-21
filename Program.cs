@@ -19,26 +19,29 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoles<ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-//builder.Services.AddScoped<IEmailSender, EmailSender>();
 
-//var emailConfig = Configuration
-//        .GetSection("MailSettings")
-//        .Get<EmailConfiguration>();
-//builder.Services.AddSingleton(emailConfig);
 
 
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<Microsoft.AspNetCore.Identity.UI.Services.IEmailSender, EmailSender>();
-builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+//builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
+//builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection(nameof(EmailConfiguration)));
+
+var emailconfig = builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+
+builder.Services.AddSingleton(emailconfig);
 
 
+//builder.Services.AddScoped<IEmailSender, EmailSender>();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("CBA001", policy => policy.RequireClaim("CBA001"));
-});
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("CBA001", policy => policy.RequireClaim("CBA001"));
+//});
 
 var app = builder.Build();
 

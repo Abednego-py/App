@@ -1,53 +1,60 @@
-﻿using App.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿
+using MailKit;
+using MimeKit;
+//using App.Services;
 using Microsoft.Extensions.Options;
-using SendGrid;
-using SendGrid.Helpers.Mail;
+using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using App.Services;
 
-namespace App.Services
+public class EmailSender : IEmailSender
 {
+    private readonly EmailConfiguration _emailConfig;
 
-    public class EmailSender : Microsoft.AspNetCore.Identity.UI.Services.IEmailSender
+    private readonly ILogger _logger;
+
+
+    public EmailSender(EmailConfiguration emailConfig, ILogger<EmailSender> logger)
     {
-        private readonly ILogger _logger;
+        _emailConfig = emailConfig;
+        _logger = logger;
+    }
 
-        public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor,
-                           ILogger<EmailSender> logger)
+
+
+    public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+    {
+        var emailMessage = new MimeMessage();
+        emailMessage.From.Add(new MailboxAddress(String.Empty, _emailConfig.From));
+        emailMessage.To.Add(new MailboxAddress(String.Empty,email));
+        emailMessage.Subject = subject;
+        emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = htmlMessage};
+
+        using (var client = new SmtpClient())
         {
-            Options = optionsAccessor.Value;
-            _logger = logger;
-        }
-
-        public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
-
-        public async Task SendEmailAsync(string toEmail, string subject, string message)
-        {
-            if (string.IsNullOrEmpty(Options.SendGridKey))
+            try
             {
-                throw new Exception("Null SendGridKey");
+                client.Connect(_emailConfig.SmtpServer, _emailConfig.Port, true);
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                client.Authenticate(_emailConfig.UserName, _emailConfig.Password);
+
+                await client.SendAsync(emailMessage);
+
+                //_logger.LogInformation(response);
             }
-            await Execute(Options.SendGridKey, subject, message, toEmail);
-        }
-
-        public async Task Execute(string apiKey, string subject, string message, string toEmail)
-        {
-            var client = new SendGridClient(apiKey);
-            var msg = new SendGridMessage()
+            catch
             {
-                From = new EmailAddress("abednegodevelopment96@gmail.com", "Password Recovery"),
-                Subject = subject,
-                PlainTextContent = message,
-                HtmlContent = message
-            };
-            msg.AddTo(new EmailAddress(toEmail));
-
-            // Disable click tracking.
-            // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
-            msg.SetClickTracking(false, false);
-            var response = await client.SendEmailAsync(msg);
-            _logger.LogInformation(response.IsSuccessStatusCode
-                                   ? $"Email to {toEmail} queued successfully!"
-                                   : $"Failure Email to {toEmail}");
+                //log an error message or throw an exception or both.
+                throw;
+            }
+            finally
+            {
+                client.Disconnect(true);
+                client.Dispose();
+            }
         }
     }
-}
+
+    
+  }
+

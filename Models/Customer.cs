@@ -35,6 +35,7 @@ namespace App.Models
         [Display(Name = "Gender")]
         public Gender Gender { get; set; }
 
+        [Display(Name = "Customer Enabled")]
         public bool IsActivated { get; set; }
 
     }

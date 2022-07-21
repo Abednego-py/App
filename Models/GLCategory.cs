@@ -24,7 +24,7 @@ namespace App.Models
         [Display(Name = "Code")]
         public long? CodeNumber { get; set; }
 
-
+        [Display(Name = "GL Category Enabled")]
         public bool IsEnabled { get; set; } 
 
         [Display(Name = "Main Account Category")]

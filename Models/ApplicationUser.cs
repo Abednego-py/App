@@ -24,6 +24,7 @@ namespace App.Models
         }
 
 
+        [Display(Name = "Role Enabled")]
         public bool IsEnabled { get; set; } 
     }
 }

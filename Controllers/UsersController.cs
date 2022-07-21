@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using App.Data;
+using App.Models;
+using App.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using App.Data;
-using App.Models;
 
 namespace App.Controllers
 {
@@ -167,14 +164,78 @@ namespace App.Controllers
             {
                 _context.GLAccount.Remove(gLAccount);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GLAccountExists(int id)
         {
-          return (_context.GLAccount?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (_context.GLAccount?.Any(e => e.ID == id)).GetValueOrDefault();
+        }
+        public IActionResult VaultIn()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> VaultIn(VaultInViewModel vaultInViewModel)
+        {
+
+            var glacct = _context.GLAccount.Where(a => a.AccountName.ToLower() == "vault").First();
+
+
+            var tillAcct = _context.GLAccount.Where(x => x.CodeNumber == vaultInViewModel.CodeNumber).First();
+
+            if (glacct.AccountBalance > (float)vaultInViewModel.Amount)
+            {
+                tillAcct.AccountBalance += (float)vaultInViewModel.Amount;
+
+                glacct.AccountBalance -= (float)vaultInViewModel.Amount;
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(vaultInViewModel);
+
+
+        }
+        public IActionResult VaultOut()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> VaultOut(VaultInViewModel vaultInViewModel)
+        {
+
+            var glacct = _context.GLAccount.Where(a => a.AccountName.ToLower() == "vault").First();
+
+
+            var tillAcct = _context.GLAccount.Where(x => x.CodeNumber == vaultInViewModel.CodeNumber).First();
+
+            int vaultLimit = 100000;
+
+            if (glacct.AccountBalance < vaultLimit)
+            {
+                tillAcct.AccountBalance -= (float)vaultInViewModel.Amount;
+
+                glacct.AccountBalance += (float)vaultInViewModel.Amount;
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(vaultInViewModel);
+
+
         }
     }
 }
