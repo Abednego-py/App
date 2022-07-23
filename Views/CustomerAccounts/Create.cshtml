@@ -39,16 +39,18 @@
                 </select>
                 <span asp-validation-for="Accounttype" class="text-danger"></span>
             </div>
-            <div class="form-group" style="margin-bottom:5px">
+          @*  <div class="form-group" style="margin-bottom:5px">
                 <label asp-for="DateOpened" class="control-label"></label>
                 <input asp-for="DateOpened" class="form-control" />
                 <span asp-validation-for="DateOpened" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check" style="margin-bottom:5px">
+            </div>*@
+
+            @*<div class="form-group form-check" style="margin-bottom:5px">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsActivated" /> @Html.DisplayNameFor(model => model.IsActivated)
                 </label>
-            </div>
+            </div>*@
+
             <div class="form-group" style="margin-bottom:5px">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

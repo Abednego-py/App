@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using App.Data;
 using App.Models;
 using App.Logic;
+using App.Enums;
 
 namespace App.Controllers
 {
@@ -63,10 +64,21 @@ namespace App.Controllers
             CustomerLogic customerLogic = new();
 
             CustomerAccountLogic customerAcctLogic = new(_context);
+   
+            var acctType = _context.CustomerAccount.Where(a => a.Accounttype == customerAccount.Accounttype).ToList();
 
+            customerAccount.AccountNumber = Int64.Parse((customerAcctLogic.GenerateCustomerAccountNumber(customerAccount.Accounttype)).PadRight(5,'0') + (acctType.Count + 1).ToString() + customerAccount.CustomerID.ToString().PadLeft(5, '0'));
 
-            customerAccount.AccountNumber = Int64.Parse(customerAcctLogic.GenerateCustomerAccountNumber(customerAccount.Accounttype) + customerLogic.GenerateCustomerId() + customerAccount.CustomerID.ToString());
+            customerAccount.DateOpened = DateTime.Now;
 
+            if(customerAccount.AccountBalance == 0)
+            {
+                customerAccount.IsActivated = false;
+            }
+            else
+            {
+                customerAccount.IsActivated = true;
+            }
             var customerData = _context.Customer.FindAsync(customerAccount.CustomerID); 
 
             if (!ModelState.IsValid)

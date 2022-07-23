@@ -27,13 +27,13 @@ namespace App.Models
         public AccountType Accounttype { get; set; }
 
         [DisplayName("Date Opened")]
-        public DateTime DateOpened { get; set; }
+        public DateTime? DateOpened { get; set; }
 
         //[DisplayName("Loan Account")]
         //public LoanAccount LoanAccount { get; set; }
 
         [Display(Name = "Customer Account Active")]
-        public bool IsActivated { get; set; }
+        public bool? IsActivated { get; set; }
 
     }
 }

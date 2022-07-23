@@ -59,12 +59,16 @@ namespace App.Controllers
         public async Task<IActionResult> Create([Bind("ID,AccountName,CodeNumber,AccountBalance,GLCategoryID,BranchID,IsActivated")] GLAccount gLAccount)
         {
             GLCategory glCategory = await _context.GLCategory.FindAsync(gLAccount.GLCategoryID);
+
+            var glAcctList =  _context.GLAccount.Where(a => a.GLCategory == glCategory).ToList().Count();
+
             Random random = new();
 
             if (!ModelState.IsValid)
             {
+                
 
-                gLAccount.CodeNumber = (long)(glCategory.CodeNumber + random.Next(10, 100));
+                gLAccount.CodeNumber = (long)(glCategory.CodeNumber + glAcctList + 1);
 
                 _context.Add(gLAccount);
                 await _context.SaveChangesAsync();
